@@ -11,9 +11,9 @@ app.get("/", function (req, res) {
 
 app.use("/api", paymentRouter);
 
-var server = app.listen(8080, function () {
+var server = app.listen(3000, function () {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log("Example app listening at http://localhost:8080", host, port);
+  console.log("Example app listening at http://localhost:3000", host, port);
 });
