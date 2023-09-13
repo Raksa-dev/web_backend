@@ -38,7 +38,7 @@ class PaymentController {
   }
   static async handleResponsePaymentController(req, res, next) {
     try {
-      // console.log("this is request", req);
+      console.log("this is request", req);
       // console.log("this is data :", req.body.data);
       req.on("data", function (data) {
         ccavEncResponse += data;
