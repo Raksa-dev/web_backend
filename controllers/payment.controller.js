@@ -17,7 +17,7 @@ class PaymentController {
         merchant_id: merchant_id,
         order_id: 8765432,
         currency: "INR",
-        amount: "100",
+        amount: "1",
         redirect_url: encodeURIComponent(
           `http://65.0.182.222:3000/api/response`
         ),
@@ -25,7 +25,7 @@ class PaymentController {
       };
       const encryptedOrderData = ccav.getEncryptedOrder(orderParams);
       let formbody =
-        '<form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> <input type="hidden" id="encRequest" name="encRequest" value="' +
+        '<form id="nonseamless" method="post" name="redirect" action="https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> <input type="hidden" id="encRequest" name="encRequest" value="' +
         encryptedOrderData +
         `"><input type="hidden" name="access_code" id="access_code" value='${access_code}'><script language="javascript">document.redirect.submit();</script></form>`;
 
