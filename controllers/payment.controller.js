@@ -28,7 +28,7 @@ class PaymentController {
       let formbody =
         '<form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> <input type="hidden" id="encRequest" name="encRequest" value="' +
         encryptedOrderData +
-        `"><input type="hidden" name="access_code" id="access_code" value='${access_code}'></form>`;
+        `"><input type="hidden" name="access_code" id="access_code" value='${access_code}'><script language="javascript">document.redirect.submit();</script></form>`;
 
       console.log("thisis form bosyL", formbody);
       res.setHeader("content-type", "text/html");
@@ -39,6 +39,15 @@ class PaymentController {
   }
   static async handleResponsePaymentController(req, res, next) {
     try {
+      // console.log("this is request", req);
+      // console.log("this is data :", req.body);
+      // req.on("data", function (data) {
+      //   ccavEncResponse += data;
+      //   ccavPOST = qs.parse(ccavEncResponse);
+      //   var encryption = ccavPOST.encResp;
+      //   console.log("this is encryption", encryption);
+      //   ccavResponse = ccav.decrypt(encryption, workingKey);
+      // });
       var encryption = req.body.encResp;
       var ccavResponse = ccav.redirectResponseToJson(encryption);
       console.log("this is ccavResponse", ccavResponse);
