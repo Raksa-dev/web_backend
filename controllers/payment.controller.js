@@ -38,8 +38,15 @@ class PaymentController {
   }
   static async handleResponsePaymentController(req, res, next) {
     try {
-      console.log("this is request", req);
-      console.log("this is data :", req.body.data);
+      // console.log("this is request", req);
+      // console.log("this is data :", req.body.data);
+      req.on("data", function (data) {
+        ccavEncResponse += data;
+        ccavPOST = qs.parse(ccavEncResponse);
+        var encryption = ccavPOST.encResp;
+        console.log("this is encryption", encryption);
+        ccavResponse = ccav.decrypt(encryption, workingKey);
+      });
       var encryption = req.body.data.encResp;
       var ccavResponse = ccav.redirectResponseToJson(encryption);
       console.log("this is ccavResponse", ccavResponse);
