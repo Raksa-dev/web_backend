@@ -28,7 +28,7 @@ class PaymentController {
       let formbody =
         '<form id="nonseamless" method="post" name="redirect" action="https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction"/> <input type="hidden" id="encRequest" name="encRequest" value="' +
         encryptedOrderData +
-        `"><input type="hidden" name="access_code" id="access_code" value='${access_code}'><script language="javascript">document.redirect.submit();</script></form>`;
+        `"><input type="hidden" name="access_code" id="access_code" value='${access_code}'></form>`;
 
       console.log("thisis form bosyL", formbody);
       res.setHeader("content-type", "text/html");
