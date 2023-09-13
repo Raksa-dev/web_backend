@@ -1,7 +1,7 @@
 const nodeCCAvenue = require("node-ccavenue");
 const merchant_id = "2711780";
-const test_working_key = "DAB87D0ACECB98A9B08795730D603F05";
-const access_code = "AVAP10KI23AJ87PAJA";
+const test_working_key = "1A8E135945965171B67F73A71D15B5A1";
+const access_code = "AVFT05KI19BA28TFAB";
 const ccav = new nodeCCAvenue.Configure({
   merchant_id: merchant_id,
   working_key: test_working_key,
@@ -19,7 +19,7 @@ class PaymentController {
         currency: "INR",
         amount: "100",
         redirect_url: encodeURIComponent(
-          `http://localhost:3000/api/redirect_url/`
+          `http://65.0.182.222:3000/api/response`
         ),
         billing_name: "Name of the customer",
       };
@@ -34,6 +34,18 @@ class PaymentController {
       res.status(200).send(formbody);
     } catch (err) {
       next(err);
+    }
+  }
+  static async handleResponsePaymentController(req, res, next) {
+    try {
+      console.log("this is request", req);
+      console.log("this is data :", req.body.data);
+      var encryption = req.body.data.encResp;
+      var ccavResponse = ccav.redirectResponseToJson(encryption);
+      console.log("this is ccavResponse", ccavResponse);
+      res.status(200).send(JSON.stringify(ccavResponse));
+    } catch (error) {
+      next(error);
     }
   }
 }
