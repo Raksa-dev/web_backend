@@ -10,9 +10,9 @@ const ccav = new nodeCCAvenue.Configure({
 class PaymentController {
   static async handlePaymentController(req, res, next) {
     try {
-      console.log(merchant_id);
-      console.log(test_working_key);
-      console.log(access_code);
+      // console.log(merchant_id);
+      // console.log(test_working_key);
+      // console.log(access_code);
       const orderParams = {
         merchant_id: merchant_id,
         order_id: 8765432,
@@ -39,15 +39,6 @@ class PaymentController {
   }
   static async handleResponsePaymentController(req, res, next) {
     try {
-      console.log("this is request", req);
-      console.log("this is data :", req.body);
-      // req.on("data", function (data) {
-      //   ccavEncResponse += data;
-      //   ccavPOST = qs.parse(ccavEncResponse);
-      //   var encryption = ccavPOST.encResp;
-      //   console.log("this is encryption", encryption);
-      //   ccavResponse = ccav.decrypt(encryption, workingKey);
-      // });
       var encryption = req.body.encResp;
       var ccavResponse = ccav.redirectResponseToJson(encryption);
       console.log("this is ccavResponse", ccavResponse);
