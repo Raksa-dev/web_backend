@@ -10,7 +10,7 @@ app.get("/", function (req, res) {
   res.send("Hello World");
 });
 
-app.use("/api", bodyParser.json(), paymentRouter);
+app.use("/api", bodyParser.urlencoded(), paymentRouter);
 
 var server = app.listen(3000, function () {
   var host = server.address().address;
