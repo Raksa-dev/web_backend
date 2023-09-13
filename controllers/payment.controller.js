@@ -18,10 +18,11 @@ class PaymentController {
         order_id: 8765432,
         currency: "INR",
         amount: "1",
-        // redirect_url: encodeURIComponent(
-        //   `http://65.0.182.222:3000/api/response`
-        // ),
+        redirect_url: encodeURIComponent(
+          `http://65.0.182.222:3000/api/response`
+        ),
         billing_name: "Name of the customer",
+        language: "en",
       };
       const encryptedOrderData = ccav.getEncryptedOrder(orderParams);
       let formbody =
