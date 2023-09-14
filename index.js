@@ -7,7 +7,7 @@ dotenv.config();
 const paymentRouter = require("./routes/payment.routes");
 
 app.get("/", function (req, res) {
-  res.send("Hello World nice!!!!!!!");
+  res.send("Hello World nice!");
 });
 
 app.use("/api", bodyParser.urlencoded(), paymentRouter);
