@@ -10,9 +10,6 @@ const ccav = new nodeCCAvenue.Configure({
 class PaymentController {
   static async handlePaymentController(req, res, next) {
     try {
-      // console.log(merchant_id);
-      // console.log(test_working_key);
-      // console.log(access_code);
       const orderParams = {
         merchant_id: merchant_id,
         order_id: 8765432,
@@ -51,6 +48,11 @@ class PaymentController {
       var encryption = req.body.encResp;
       var ccavResponse = ccav.redirectResponseToJson(encryption);
       console.log("this is ccavResponse", ccavResponse);
+      if (ccavResponse["order_status"] == "Success") {
+        res.redirect("https://www.astroraksa.com/transaction?type=success");
+      } else {
+        res.redirect("https://www.astroraksa.com/transaction");
+      }
       res.status(200).send(JSON.stringify(ccavResponse));
     } catch (error) {
       next(error);
