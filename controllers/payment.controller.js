@@ -1,7 +1,7 @@
 const nodeCCAvenue = require("node-ccavenue");
 const merchant_id = "2711780";
 const test_working_key = "0E529A90F8B0AD7253E2C98A9E320201";
-const access_code = "AVUZ05KI2DBE51ZUEB";
+const access_code = "AVUZ05KI20BE51ZUEB";
 const ccav = new nodeCCAvenue.Configure({
   merchant_id: merchant_id,
   working_key: test_working_key,
