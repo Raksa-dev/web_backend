@@ -14,7 +14,11 @@ class PaymentController {
         merchant_id: merchant_id,
         redirect_url: encodeURIComponent(`https://raksa.tech/api/response`),
         billing_name: "Name of the customer",
-        ...req.body,
+        order_id: "DASKJDNQWJND_userId",
+        amount: 100,
+        currency: "INR",
+        language: "en",
+        // ...req.body,
       };
       const encryptedOrderData = ccav.getEncryptedOrder(orderParams);
       let formbody =
@@ -22,7 +26,6 @@ class PaymentController {
         encryptedOrderData +
         `"><input type="hidden" name="access_code" id="access_code" value='${access_code}'><script language="javascript">document.redirect.submit();</script></form>`;
 
-      console.log("thisis form bosyL", formbody);
       res.setHeader("content-type", "text/html");
       res.status(200).send(formbody);
     } catch (err) {

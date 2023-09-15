@@ -11,7 +11,7 @@ dotenv.config();
 const paymentRouter = require("./routes/payment.routes");
 
 app.get("/", function (req, res) {
-  res.send("CCavenu server!");
+  res.send("CCavenu server!!");
 });
 
 app.use("/api", bodyParser.urlencoded(), paymentRouter);
