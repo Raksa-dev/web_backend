@@ -1,24 +1,20 @@
 const nodeCCAvenue = require("node-ccavenue");
-const merchant_id = "2711780";
-const test_working_key = "02182BD7D50FAF0553F00BC70A412F8C";
-const access_code = "AVIA09KI06AB67AIBA";
-const ccav = new nodeCCAvenue.Configure({
-  merchant_id: merchant_id,
-  working_key: test_working_key,
-});
 
 class PaymentController {
   static async handlePaymentController(req, res, next) {
     try {
+      const merchant_id = "2711780";
+      const test_working_key = "02182BD7D50FAF0553F00BC70A412F8C";
+      const access_code = "AVIA09KI06AB67AIBA";
+      const ccav = new nodeCCAvenue.Configure({
+        merchant_id: merchant_id,
+        working_key: test_working_key,
+      });
       const orderParams = {
         merchant_id: merchant_id,
         redirect_url: encodeURIComponent(`https://raksa.tech/api/response`),
         billing_name: "Name of the customer",
-        order_id: "DASKJDNQWJND_userId",
-        amount: 100,
-        currency: "INR",
-        language: "en",
-        // ...req.body,
+        ...req.body,
       };
       const encryptedOrderData = ccav.getEncryptedOrder(orderParams);
       let formbody =
