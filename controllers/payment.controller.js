@@ -1,7 +1,7 @@
 const nodeCCAvenue = require("node-ccavenue");
 const merchant_id = "2711780";
-const test_working_key = "01194DFC75E88001E65910A1834CCBAB";
-const access_code = "AVXF12KI92BB52FXBB";
+const test_working_key = "0E529A90FBB0AD7253E2C98A9E320201";
+const access_code = "AVUZ05KI2DBE51ZUEB";
 const ccav = new nodeCCAvenue.Configure({
   merchant_id: merchant_id,
   working_key: test_working_key,
@@ -15,9 +15,7 @@ class PaymentController {
         order_id: 8765432,
         currency: "INR",
         amount: "1",
-        redirect_url: encodeURIComponent(
-          `http://65.0.182.222:3000/api/response`
-        ),
+        redirect_url: encodeURIComponent(`https://raksa.tech/api/response`),
         billing_name: "Name of the customer",
         language: "en",
       };
