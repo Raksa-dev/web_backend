@@ -5,12 +5,13 @@ const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 
 app.use(cors());
+app.use(express.json());
 dotenv.config();
 
 const paymentRouter = require("./routes/payment.routes");
 
 app.get("/", function (req, res) {
-  res.send("Hello cool World nice!");
+  res.send("CCavenu server!");
 });
 
 app.use("/api", bodyParser.urlencoded(), paymentRouter);
