@@ -9,6 +9,7 @@ class PaymentController {
       });
       const orderParams = {
         redirect_url: encodeURIComponent(`https://raksa.tech/api/response`),
+        cancel_url: encodeURIComponent(`https://raksa.tech/api/response`),
         billing_name: "Name of the customer",
         currency: "INR",
         ...req.body.orderParams,
