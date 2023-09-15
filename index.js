@@ -1,7 +1,10 @@
 var express = require("express");
 var app = express();
+var cors = require("cors");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+
+app.use(cors());
 dotenv.config();
 
 const paymentRouter = require("./routes/payment.routes");
