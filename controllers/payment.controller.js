@@ -39,19 +39,17 @@ class PaymentController {
         merchant_id: "2711780",
       });
       var ccavResponse = ccav.redirectResponseToJson(encryption);
+      var ciphertext = CryptoJS.AES.encrypt(
+        JSON.stringify(ccavResponse),
+        "Astro"
+      ).toString();
       if (ccavResponse["order_status"] == "Success") {
-        var ciphertext = CryptoJS.AES.encrypt(
-          JSON.stringify(ccavResponse),
-          "Astro"
-        ).toString();
         res.redirect(
           `https://www.astroraksa.com/transaction?type=success&val=${ciphertext}`
         );
       } else {
         res.redirect(
-          `https://www.astroraksa.com/transaction?newdata=${JSON.stringify(
-            ccavResponse
-          )}`
+          `https://www.astroraksa.com/transaction?val=${ciphertext}`
         );
       }
     } catch (error) {
