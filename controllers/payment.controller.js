@@ -2,6 +2,32 @@ const nodeCCAvenue = require("node-ccavenue");
 const CryptoJS = require("crypto-js");
 
 class PaymentController {
+  static async handlePaymentControllerPhone(req, res, next) {
+    try {
+      const ccav = new nodeCCAvenue.Configure({
+        ...req.body.keys,
+        merchant_id: "2711780",
+      });
+      const orderParams = {
+        redirect_url: encodeURIComponent(
+          `https://raksa.tech/api/response?access_code=${req.body.keys?.access_code}&working_key=${req.body.keys?.working_key}`
+        ),
+        cancel_url: encodeURIComponent(
+          `https://raksa.tech/api/response?access_code=${req.body.keys?.access_code}&working_key=${req.body.keys?.working_key}`
+        ),
+        billing_name: "Name of the customer",
+        currency: "INR",
+        ...req.body.orderParams,
+      };
+      const encryptedOrderData = ccav.getEncryptedOrder(orderParams);
+      res.setHeader("content-type", "application/json");
+      res.status(200).json({
+        payLink: `https://secure.ccavenue.com/transaction/transaction.do?command=initiateTransaction&access_code=${req.body.keys.access_code}&encRequest=${encryptedOrderData}`,
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
   static async handlePaymentController(req, res, next) {
     try {
       const ccav = new nodeCCAvenue.Configure({
