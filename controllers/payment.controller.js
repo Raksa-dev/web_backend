@@ -9,8 +9,12 @@ class PaymentController {
         merchant_id: "2711780",
       });
       const orderParams = {
-        redirect_url: encodeURIComponent(`https://raksa.tech/api/response`),
-        cancel_url: encodeURIComponent(`https://raksa.tech/api/response`),
+        redirect_url: encodeURIComponent(
+          `https://raksa.tech/api/response?access_code=${req.body.keys?.access_code}&working_key=${req.body.keys?.working_key}`
+        ),
+        cancel_url: encodeURIComponent(
+          `https://raksa.tech/api/response?access_code=${req.body.keys?.access_code}&working_key=${req.body.keys?.working_key}`
+        ),
         billing_name: "Name of the customer",
         currency: "INR",
         ...req.body.orderParams,
@@ -31,9 +35,7 @@ class PaymentController {
     try {
       var encryption = req.body.encResp;
       const ccav = new nodeCCAvenue.Configure({
-        // ...req.query,
-        working_key: "02182BD7D50FAF0553F00BC70A412F8C",
-        access_code: "AVIA09KI06AB67AIBA",
+        ...req.query,
         merchant_id: "2711780",
       });
       var ccavResponse = ccav.redirectResponseToJson(encryption);
@@ -47,7 +49,7 @@ class PaymentController {
         );
       } else {
         res.redirect(
-          `https://www.astroraksa.com/transaction?Data=${JSON.stringify(
+          `https://www.astroraksa.com/transaction?newdata=${JSON.stringify(
             ccavResponse
           )}`
         );
