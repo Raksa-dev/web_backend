@@ -9,7 +9,9 @@ class PaymentController {
         merchant_id: "2711780",
       });
       const orderParams = {
-        redirect_url: encodeURIComponent(`https://raksa.tech/api/response`),
+        redirect_url: encodeURIComponent(
+          `https://raksa.tech/api/response?access_code=${req.body.keys?.access_code}&working_key=${req.body.keys?.working_key}`
+        ),
         cancel_url: encodeURIComponent(`https://raksa.tech/api/response`),
         billing_name: "Name of the customer",
         currency: "INR",
@@ -30,6 +32,10 @@ class PaymentController {
   static async handleResponsePaymentController(req, res, next) {
     try {
       var encryption = req.body.encResp;
+      const ccav = new nodeCCAvenue.Configure({
+        ...req.query,
+        merchant_id: "2711780",
+      });
       var ccavResponse = ccav.redirectResponseToJson(encryption);
       if (ccavResponse["order_status"] == "Success") {
         var ciphertext = CryptoJS.AES.encrypt(
