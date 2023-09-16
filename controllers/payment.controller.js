@@ -1,4 +1,5 @@
 const nodeCCAvenue = require("node-ccavenue");
+const CryptoJS = require("crypto-js");
 
 class PaymentController {
   static async handlePaymentController(req, res, next) {
@@ -30,9 +31,14 @@ class PaymentController {
     try {
       var encryption = req.body.encResp;
       var ccavResponse = ccav.redirectResponseToJson(encryption);
-      console.log("this is ccavResponse", ccavResponse);
       if (ccavResponse["order_status"] == "Success") {
-        res.redirect("https://www.astroraksa.com/transaction?type=success");
+        var ciphertext = CryptoJS.AES.encrypt(
+          JSON.stringify(ccavResponse),
+          "Astro"
+        ).toString();
+        res.redirect(
+          `https://www.astroraksa.com/transaction?type=success&val=${ciphertext}`
+        );
       } else {
         res.redirect("https://www.astroraksa.com/transaction");
       }
